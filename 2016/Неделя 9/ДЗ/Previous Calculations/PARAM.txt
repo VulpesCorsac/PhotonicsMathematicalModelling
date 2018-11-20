@@ -1,0 +1,13 @@
+nSiO2 1.445 Refractive index, silica (SiO2)
+NA 0.0095 Numerical Aperture
+nCore NA*NA+nSiO2 Refractive index, core (doped SiO2)
+alphaSiO2 0.35e-6[1/K] Thermal expansion coefficient, silica
+alphaGlass 0.33e-6[1/K] Thermal expansion coefficient, glass
+ESiO2 78[GPa] Young's modulus, silica
+nuSiO2 0.17 Poisson's ratio, silica
+rhoSiO2 2203[kg/m^3] Density, silica
+B1 0.65e-12[m^2/N] First stress optical coefficient
+B2 4.2e-12[m^2/N] Second stress optical coefficient
+T1 20[degC] Operating temperature
+T0 1100[degC] Reference temperature
+lambda0_ewfd 1.55[um] Free space wavelength

@@ -1,0 +1,1566 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     63382,       1558]
+NotebookOptionsPosition[     62679,       1534]
+NotebookOutlinePosition[     63021,       1549]
+CellTagsIndexPosition[     62978,       1546]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6846651005638075`*^9, 3.684665101605531*^9}, {
+  3.6846651475867653`*^9, 3.68466515162262*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Plot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Erfc", "[", 
+        RowBox[{
+         RowBox[{"-", "x"}], "*", 
+         RowBox[{"10", "^", "5"}]}], "]"}], "/", "2"}], ",", 
+      RowBox[{
+       RowBox[{"Erfc", "[", 
+        RowBox[{"-", "x"}], "]"}], "/", "2"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", 
+      RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6849927630610485`*^9, 3.684992767649234*^9}, 
+   3.6849930502133284`*^9, 3.685191813696851*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"PlanePulse", "[", 
+    RowBox[{"A_", ",", " ", "\[Tau]Pulse_", ",", " ", "t_"}], "]"}], " ", ":=",
+    " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"HeavisideTheta", "[", "t", "]"}], " ", "-", " ", 
+      RowBox[{"HeavisideTheta", "[", 
+       RowBox[{"t", "-", "\[Tau]Pulse"}], "]"}]}], ")"}], " ", "A"}]}], ";", 
+  RowBox[{
+   RowBox[{"PlaneSinglePulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Pulse_", ",", " ", "\[Tau]Wait_", ",", " ", "t_"}],
+     "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"UnitStep", "[", "t", "]"}], " ", "-", " ", 
+      RowBox[{"UnitStep", "[", 
+       RowBox[{"t", "-", "\[Tau]Pulse"}], "]"}]}], ")"}], " ", "A"}]}], ";", 
+  RowBox[{
+   RowBox[{"PlanePeriodicPulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Pulse_", ",", " ", "\[Tau]Wait_", ",", " ", "t_"}],
+     "]"}], " ", ":=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"UnitStep", "[", 
+       RowBox[{"Mod", "[", 
+        RowBox[{"t", ",", 
+         RowBox[{"\[Tau]Pulse", "+", "\[Tau]Wait"}]}], "]"}], "]"}], " ", "-",
+       " ", 
+      RowBox[{"UnitStep", "[", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", 
+          RowBox[{"\[Tau]Pulse", "+", "\[Tau]Wait"}]}], "]"}], "-", 
+        "\[Tau]Pulse"}], "]"}]}], ")"}], " ", "A"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrianglePulse", "[", 
+    RowBox[{"A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Down_", ",", "t_"}],
+     "]"}], " ", ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"HeavisideTheta", "[", "t", "]"}], " ", "-", " ", 
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{"t", "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Down"}], "]"}]}], ")"}], 
+     " ", "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "t"}], "/", "\[Tau]Down"}], " ", "+", "1", "+", 
+       RowBox[{"\[Tau]Up", "/", "\[Tau]Down"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TriangleSinglePulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Down_", ",", "\[Tau]Wait_", 
+     ",", "t_"}], "]"}], " ", ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", "t", "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{"t", "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Down"}], "]"}]}], ")"}], 
+     " ", "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "t"}], "/", "\[Tau]Down"}], " ", "+", "1", "+", 
+       RowBox[{"\[Tau]Up", "/", "\[Tau]Down"}]}], ")"}]}]}]}], ";", 
+  RowBox[{
+   RowBox[{"TrianglePeriodicPulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Down_", ",", " ", 
+     "\[Tau]Wait_", ",", "t_"}], "]"}], " ", ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", 
+          RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], "]"}],
+         "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], 
+          "]"}], "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", 
+          RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], "]"}],
+         "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", " ", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], 
+          "]"}], "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], 
+          "]"}], "-", "\[Tau]Up", "-", "\[Tau]Down"}], "]"}]}], ")"}], " ", 
+     "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}]}], 
+          "]"}]}], "/", "\[Tau]Down"}], " ", "+", "1", "+", 
+       RowBox[{"\[Tau]Up", "/", "\[Tau]Down"}]}], ")"}]}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezePulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Plane_", ",", "\[Tau]Down_",
+      ",", "t_"}], "]"}], " ", ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"HeavisideTheta", "[", "t", "]"}], " ", "-", " ", 
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{"t", "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane"}], "]"}]}], ")"}], 
+     " ", "A"}], "+", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane"}], "]"}], " ", "-", 
+       " ", 
+       RowBox[{"HeavisideTheta", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane", "-", "\[Tau]Down"}],
+         "]"}]}], ")"}], " ", "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "t"}], "/", "\[Tau]Down"}], " ", "+", "1", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"\[Tau]Up", "+", "\[Tau]Plane"}], ")"}], "/", 
+        "\[Tau]Down"}]}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezeSinglePulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Plane_", ",", "\[Tau]Down_",
+      ",", "\[Tau]Wait_", ",", "t_"}], "]"}], " ", ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", "t", "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{"t", "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane"}], "]"}]}], ")"}], 
+     " ", "A"}], "+", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane"}], "]"}], " ", "-", 
+       " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"t", "-", "\[Tau]Up", "-", "\[Tau]Plane", "-", "\[Tau]Down"}],
+         "]"}]}], ")"}], " ", "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "t"}], "/", "\[Tau]Down"}], " ", "+", "1", "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"\[Tau]Up", "+", "\[Tau]Plane"}], ")"}], "/", 
+        "\[Tau]Down"}]}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TrapezePeriodicPulse", "[", 
+    RowBox[{
+    "A_", ",", " ", "\[Tau]Up_", ",", " ", "\[Tau]Plane_", ",", "\[Tau]Down_",
+      ",", "\[Tau]Wait_", ",", "t_"}], "]"}], " ", ":=", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", 
+          RowBox[{
+          "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+           "\[Tau]Wait"}]}], "]"}], "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}], "-", "\[Tau]Up"}], "]"}]}], ")"}], " ", 
+     RowBox[{"(", 
+      RowBox[{"A", " ", 
+       RowBox[{
+        RowBox[{"Mod", "[", 
+         RowBox[{"t", ",", 
+          RowBox[{
+          "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+           "\[Tau]Wait"}]}], "]"}], "/", "\[Tau]Up"}]}], ")"}]}], " ", "+", 
+    " ", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}], "-", "\[Tau]Up"}], "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}], "-", "\[Tau]Up", "-", "\[Tau]Plane"}], 
+        "]"}]}], ")"}], " ", "A"}], "+", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}], "-", "\[Tau]Up", "-", "\[Tau]Plane"}], 
+        "]"}], " ", "-", " ", 
+       RowBox[{"UnitStep", "[", 
+        RowBox[{
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}], "-", "\[Tau]Up", "-", "\[Tau]Plane", "-",
+          "\[Tau]Down"}], "]"}]}], ")"}], " ", "A", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"Mod", "[", 
+          RowBox[{"t", ",", 
+           RowBox[{
+           "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+            "\[Tau]Wait"}]}], "]"}]}], "/", "\[Tau]Down"}], " ", "+", "1", 
+       "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"\[Tau]Up", "+", "\[Tau]Plane"}], ")"}], "/", 
+        "\[Tau]Down"}]}], ")"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"PlanePeriodicPulse", "[", 
+        RowBox[{"A", ",", 
+         RowBox[{"\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down"}], ",", 
+         "\[Tau]Wait", ",", "t"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"TrianglePeriodicPulse", "[", 
+        RowBox[{"A", ",", 
+         RowBox[{"\[Tau]Up", "+", 
+          RowBox[{"\[Tau]Plane", "/", "2"}]}], ",", 
+         RowBox[{"\[Tau]Down", "+", 
+          RowBox[{"\[Tau]Plane", "/", "2"}]}], ",", "\[Tau]Wait", ",", "t"}], 
+        "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"TrapezePeriodicPulse", "[", 
+        RowBox[{
+        "A", ",", "\[Tau]Up", ",", " ", "\[Tau]Plane", ",", "\[Tau]Down", ",",
+          " ", "\[Tau]Wait", ",", "t"}], "]"}]}], "\[IndentingNewLine]", 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", " ", "0", ",", " ", 
+       RowBox[{"n", "*", 
+        RowBox[{"(", 
+         RowBox[{
+         "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+          "\[Tau]Wait"}], ")"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotRange", "\[Rule]", " ", "Full"}], ",", 
+     RowBox[{"GridLines", "\[Rule]", "Automatic"}], ",", 
+     RowBox[{"ClippingStyle", "\[Rule]", " ", "Automatic"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", " ", "J"}], "}"}]}], ",", " ", 
+     RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", " ", 
+     RowBox[{"MaxRecursion", "\[Rule]", "10"}], ",", " ", 
+     RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", " ", 
+     RowBox[{"Exclusions", "\[Rule]", "None"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]Up", ",", " ", 
+       RowBox[{"5", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]Plane", ",", " ", "\[Tau]Up"}], "}"}], ",", "0", ",", 
+     " ", 
+     RowBox[{"20", "\[Times]", "\[Tau]Up"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]Down", ",", " ", "\[Tau]Up"}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "12"}]}], ",", " ", 
+     RowBox[{"20", "\[Times]", "\[Tau]Up"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]Wait", ",", " ", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"\[Tau]Up", "+", "\[Tau]Down"}], ")"}], "\[Times]", "4"}]}], 
+      "}"}], ",", " ", "0", ",", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"\[Tau]Up", "+", "\[Tau]Down"}], ")"}], "\[Times]", "10"}]}], 
+    "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"A", ",", " ", "0.001"}], "}"}], ",", " ", "0.0001", ",", " ", 
+     "0.01"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"n", ",", " ", "2"}], "}"}], ",", "1", ",", " ", "10", ",", 
+     "1"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.684746497388423*^9, 3.68474649759155*^9}, {
+   3.684852782898013*^9, 3.684852802201659*^9}, {3.6848533290096045`*^9, 
+   3.68485334780272*^9}, {3.6848564120601683`*^9, 3.684856412244916*^9}, {
+   3.684859722079491*^9, 3.6848601252697773`*^9}, 3.684860464962365*^9, 
+   3.684860583634698*^9, {3.6848614320337768`*^9, 3.6848615087423067`*^9}, {
+   3.6848615503169985`*^9, 3.68486158304589*^9}, {3.6848616641481066`*^9, 
+   3.684861672960797*^9}, {3.6848617144932504`*^9, 3.6848617187437143`*^9}, {
+   3.6848617591799135`*^9, 3.6848617747643995`*^9}, {3.6848618449919343`*^9, 
+   3.6848618709364305`*^9}, {3.6848988836944046`*^9, 3.684898890292589*^9}, {
+   3.684898920656242*^9, 3.684898953555131*^9}, {3.684898987426283*^9, 
+   3.6848990602682934`*^9}, {3.6848991209866652`*^9, 
+   3.6848992123189683`*^9}, {3.68489926779205*^9, 3.6848992684014316`*^9}, {
+   3.6848993024818044`*^9, 3.684899572562483*^9}, {3.684899602564726*^9, 
+   3.6848997916476684`*^9}, 3.685191821015092*^9, 3.685255156392787*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"analiticalPlaneResult", " ", "=", " ", 
+   RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+    RowBox[{"DSolve", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"PlaneSinglePulse", "[", 
+          RowBox[{"A", ",", " ", "\[Tau]Pulse", ",", "\[Tau]Wait", ",", "t"}],
+           "]"}], "\[Equal]", 
+         RowBox[{
+          RowBox[{"I1", "[", "t", "]"}], "+", 
+          RowBox[{"I2", "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"I2", "[", "t", "]"}], "/", "Cp"}], "\[Equal]", 
+         RowBox[{"R", " ", 
+          RowBox[{
+           RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"I1", "[", "0", "]"}], "\[Equal]", "0"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"I1", ",", "I2"}], "}"}], ",", "t"}], "]"}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"analiticalPlaneTime", " ", "=", " ", 
+   RowBox[{"analiticalPlaneResult", "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"analiticalPlaneSolve", " ", "=", " ", 
+   RowBox[{"analiticalPlaneResult", "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6847351562847147`*^9, 3.6847351695875883`*^9}, {
+   3.68473521937706*^9, 3.6847352405313625`*^9}, {3.684735485121788*^9, 
+   3.6847354892054358`*^9}, {3.6847355487366433`*^9, 
+   3.6847355780164895`*^9}, {3.684735631848566*^9, 3.6847357058354177`*^9}, {
+   3.684735819484277*^9, 3.6847358201327963`*^9}, {3.684735861837014*^9, 
+   3.684736116944174*^9}, {3.684736148424444*^9, 3.684736191081649*^9}, {
+   3.684736235072524*^9, 3.684736269772875*^9}, {3.6847364330449467`*^9, 
+   3.684736577459406*^9}, {3.6847366349010973`*^9, 3.6847367057143497`*^9}, {
+   3.684736766698363*^9, 3.6847367848958626`*^9}, {3.684737105276121*^9, 
+   3.684737108142563*^9}, 3.684737207916249*^9, {3.6847388170854993`*^9, 
+   3.6847388231744537`*^9}, 3.684738963123412*^9, {3.684739163926691*^9, 
+   3.684739165946436*^9}, {3.684739556889916*^9, 3.6847395572992153`*^9}, 
+   3.684852919553463*^9, {3.6848529627706327`*^9, 3.684852991272476*^9}, 
+   3.684853232802187*^9, {3.684860172189488*^9, 3.684860207224883*^9}, {
+   3.6848605987499313`*^9, 3.6848606041689177`*^9}, 3.684860646809464*^9, {
+   3.6848615195231457`*^9, 3.684861538308011*^9}, {3.6848616301471047`*^9, 
+   3.684861632293968*^9}, {3.6848617802809043`*^9, 3.684861782732582*^9}, 
+   3.684861898891594*^9, {3.684862148722357*^9, 3.684862149003625*^9}, {
+   3.684862182224537*^9, 3.6848622862816453`*^9}, {3.684862343966657*^9, 
+   3.68486236875856*^9}, {3.6848624099186635`*^9, 3.6848624684678545`*^9}, 
+   3.6848625478442554`*^9, {3.6848985723198423`*^9, 3.6848985887500715`*^9}, 
+   3.6851540498616257`*^9, {3.6851541198782606`*^9, 3.685154120359229*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"numericalPlaneResult", " ", "=", " ", 
+     RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"PlaneSinglePulse", "[", 
+             RowBox[{
+             "A", ",", " ", "\[Tau]Pulse", ",", "\[Tau]Wait", ",", "t"}], 
+             "]"}], " ", "\[Equal]", " ", 
+            RowBox[{
+             RowBox[{"I1", "[", "t", "]"}], "+", 
+             RowBox[{"I2", "[", "t", "]"}]}]}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"I2", "[", "t", "]"}], "/", "Cp"}], "\[Equal]", 
+            RowBox[{"R", " ", 
+             RowBox[{
+              RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+           RowBox[{
+            RowBox[{"I1", "[", "0", "]"}], "\[Equal]", " ", "0"}]}], "}"}], 
+         "\[IndentingNewLine]", "/.", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"A", " ", "\[Rule]", "ASlider"}], ",", " ", 
+           RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+           RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+           RowBox[{"\[Tau]Pulse", " ", "\[Rule]", " ", "\[Tau]PulseSlider"}], 
+           ",", " ", 
+           RowBox[{"\[Tau]Wait", "\[Rule]", "\[Tau]WaitSlider"}], ",", " ", 
+           RowBox[{"n", "\[Rule]", "nSlider"}]}], "}"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"I1", ",", "I2"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "0", ",", " ", 
+          RowBox[{"nSlider", "*", 
+           RowBox[{"(", 
+            RowBox[{"\[Tau]PulseSlider", "+", "\[Tau]WaitSlider"}], ")"}]}]}],
+          "}"}]}], "]"}], "\[IndentingNewLine]", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"numericalPlaneTime", " ", "=", " ", 
+     RowBox[{"numericalPlaneResult", "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numericalPlaneSolve", " ", "=", " ", 
+     RowBox[{"numericalPlaneResult", "[", 
+      RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Plot", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evaluate", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", "analiticalPlaneSolve"}],
+             ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", "numericalPlaneSolve"}], 
+            ",", "\[IndentingNewLine]", 
+            RowBox[{"R", " ", 
+             RowBox[{"PlanePeriodicPulse", "[", 
+              RowBox[{
+              "A", ",", " ", "\[Tau]Pulse", ",", "\[Tau]Wait", ",", "t"}], 
+              "]"}]}]}], "\[IndentingNewLine]", "}"}], "/.", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"A", " ", "\[Rule]", " ", "ASlider"}], ",", " ", 
+            RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+            RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+            RowBox[{"\[Tau]Pulse", " ", "\[Rule]", " ", "\[Tau]PulseSlider"}],
+             ",", " ", 
+            RowBox[{"\[Tau]Wait", "->", "\[Tau]WaitSlider"}]}], "}"}]}], 
+         "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", 
+          RowBox[{"nSlider", "\[Times]", 
+           RowBox[{"(", 
+            RowBox[{"\[Tau]PulseSlider", "+", "\[Tau]WaitSlider"}], ")"}]}]}],
+          "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"MaxRecursion", "\[Rule]", "10"}], ",", " ", 
+        RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
+        RowBox[{"Exclusions", "\[Rule]", "None"}], ",", " ", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"analiticalPlaneTime", ",", "numericalPlaneTime"}], "}"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Integrate", "[", 
+        RowBox[{
+         RowBox[{"PlaneSinglePulse", "[", 
+          RowBox[{
+          "ASlider", ",", " ", "\[Tau]PulseSlider", ",", "\[Tau]WaitSlider", 
+           ",", " ", "t"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+           RowBox[{"\[Tau]PulseSlider", " ", "+", " ", "\[Tau]WaitSlider"}]}],
+           "}"}]}], "]"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"\[Tau]PulseSlider", " ", "+", " ", "\[Tau]WaitSlider"}], 
+        ")"}]}]}], "}"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]PulseSlider", ",", 
+       RowBox[{"5", "*", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]WaitSlider", ",", 
+       RowBox[{"10", "*", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"5", "\[Times]", 
+      RowBox[{"10", "^", 
+       RowBox[{"-", "8"}]}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ASlider", ",", "0.001"}], "}"}], ",", " ", "0.0001", ",", " ", 
+     "1"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"RSlider", ",", "500"}], "}"}], ",", " ", "1", ",", " ", 
+     "10000"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"CpSlider", ",", 
+       RowBox[{"5", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "12"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "13"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "11"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"nSlider", ",", " ", "1"}], "}"}], ",", "1", ",", " ", "10", 
+     ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6847368556881785`*^9, 3.684736903518146*^9}, {
+   3.684737269469174*^9, 3.684737482499091*^9}, {3.6847379649909544`*^9, 
+   3.6847381369219236`*^9}, {3.684738301517002*^9, 3.6847384208503466`*^9}, {
+   3.684738474277012*^9, 3.6847385119944086`*^9}, {3.6847385643825803`*^9, 
+   3.6847385879134064`*^9}, {3.684738674918338*^9, 3.6847387666929207`*^9}, {
+   3.684738851004114*^9, 3.6847388526674795`*^9}, {3.6847390042849803`*^9, 
+   3.6847391180971975`*^9}, {3.684739218867581*^9, 3.6847392193874907`*^9}, {
+   3.6847392888061857`*^9, 3.684739341535209*^9}, {3.6847398182214384`*^9, 
+   3.6847398454046636`*^9}, {3.6847416520956917`*^9, 3.684741705286109*^9}, {
+   3.684741787802764*^9, 3.6847417894765835`*^9}, {3.68474182563918*^9, 
+   3.684741939405671*^9}, {3.6847446310449295`*^9, 3.6847446342834735`*^9}, {
+   3.6848529956273394`*^9, 3.684853007089778*^9}, {3.6848531233798704`*^9, 
+   3.6848531479194613`*^9}, 3.6848532097777324`*^9, 3.6848532831630096`*^9, 
+   3.684853317904069*^9, {3.68485336113731*^9, 3.684853377273095*^9}, {
+   3.684855619783854*^9, 3.684855874700571*^9}, 3.684855933344407*^9, {
+   3.6848602255410423`*^9, 3.684860237879759*^9}, {3.6848602783480363`*^9, 
+   3.6848602805052586`*^9}, {3.6848603312129393`*^9, 3.6848604153135552`*^9}, 
+   3.6848604454768634`*^9, 3.684860594785679*^9, {3.6848616478354454`*^9, 
+   3.684861654206912*^9}, {3.684861955325328*^9, 3.684861994661956*^9}, {
+   3.6848623094941454`*^9, 3.6848623098066483`*^9}, {3.68486251844977*^9, 
+   3.6848625424528227`*^9}, {3.684862573113883*^9, 3.6848626394134836`*^9}, {
+   3.6848626708651233`*^9, 3.684862709075054*^9}, {3.684863014141448*^9, 
+   3.6848630669441333`*^9}, {3.6848986488225355`*^9, 3.68489868067029*^9}, {
+   3.68499288931953*^9, 3.6849928942082844`*^9}, {3.684994979004702*^9, 
+   3.684994992693818*^9}, {3.6849952262425733`*^9, 3.684995270326003*^9}, {
+   3.6849953422591534`*^9, 3.684995367159732*^9}, {3.6849956159982986`*^9, 
+   3.684995636624047*^9}, {3.6851540518817797`*^9, 3.6851540692852535`*^9}, {
+   3.6851781739058847`*^9, 3.685178187205907*^9}, {3.68518954229557*^9, 
+   3.685189574446437*^9}, 3.6851896099747114`*^9, 3.685191835118854*^9, 
+   3.685255161434219*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"analiticalTriangleResult", " ", "=", " ", 
+   RowBox[{"Timing", "[", 
+    RowBox[{"DSolve", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"TriangleSinglePulse", "[", 
+          RowBox[{
+          "A", ",", " ", "\[Tau]Up", ",", " ", "\[Tau]Down", ",", " ", 
+           "\[Tau]Wait", ",", "t"}], "]"}], " ", "\[Equal]", " ", 
+         RowBox[{
+          RowBox[{"I1", "[", "t", "]"}], "+", 
+          RowBox[{"I2", "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"I2", "[", "t", "]"}], "/", "Cp"}], "\[Equal]", 
+         RowBox[{"R", " ", 
+          RowBox[{
+           RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"I1", "[", "0", "]"}], "\[Equal]", 
+         RowBox[{"I1", "[", 
+          RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}], 
+          "]"}]}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"I1", ",", "I2"}], "}"}], ",", "t"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"analiticalTriangleTime", " ", "=", " ", 
+   RowBox[{"analiticalTriangleResult", "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"analiticalTriangleSolve", " ", "=", " ", 
+   RowBox[{"analiticalTriangleResult", "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.68466532503632*^9, 3.6846654607352977`*^9}, 
+   3.684665509828342*^9, {3.684665544274559*^9, 3.6846656750223227`*^9}, {
+   3.684665711891816*^9, 3.6846657432912292`*^9}, {3.6846660229899216`*^9, 
+   3.6846660273976507`*^9}, {3.6846660724708843`*^9, 
+   3.6846660807815847`*^9}, {3.684666316419261*^9, 3.684666370179064*^9}, {
+   3.6846664004695883`*^9, 3.684666446406164*^9}, {3.6846665093892803`*^9, 
+   3.684666509538386*^9}, 3.6846711829766684`*^9, {3.6846718084373384`*^9, 
+   3.6846718123681536`*^9}, {3.684671950118247*^9, 3.6846719656663976`*^9}, {
+   3.6846730624948573`*^9, 3.6846730698158126`*^9}, {3.684673679168096*^9, 
+   3.684673680876334*^9}, {3.6847345926591377`*^9, 3.6847346349079914`*^9}, {
+   3.6847350862929783`*^9, 3.684735237583276*^9}, {3.684735495580901*^9, 
+   3.6847354976085224`*^9}, {3.6847358784271393`*^9, 
+   3.6847359053869824`*^9}, {3.684739546320506*^9, 3.684739567368986*^9}, {
+   3.6847399672861643`*^9, 3.684739982786193*^9}, {3.6847401622593822`*^9, 
+   3.684740180129294*^9}, {3.68485316596554*^9, 3.6848531682785835`*^9}, 
+   3.684855908676934*^9, 3.6848585907159433`*^9, 3.6848587939669447`*^9, {
+   3.6848627202697215`*^9, 3.6848627213478584`*^9}, {3.6848987059545*^9, 
+   3.6848987121755624`*^9}, 3.684933714918606*^9, {3.684934033710164*^9, 
+   3.684934043252347*^9}, {3.6850782843730087`*^9, 3.6850782965432415`*^9}, {
+   3.685178666806678*^9, 3.6851787288347273`*^9}, {3.6851787649316263`*^9, 
+   3.6851787651448636`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"numericalTriangleResult", " ", "=", " ", 
+     RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"TriangleSinglePulse", "[", 
+                RowBox[{
+                "A", ",", " ", "\[Tau]Up", ",", " ", "\[Tau]Down", ",", " ", 
+                 "\[Tau]Wait", ",", "t"}], "]"}], " ", "-", " ", 
+               RowBox[{"I1", "[", "t", "]"}]}], ")"}], "/", "Cp"}], 
+            "\[Equal]", 
+            RowBox[{"R", " ", 
+             RowBox[{
+              RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+           RowBox[{
+            RowBox[{"I1", "[", "0", "]"}], "\[Equal]", " ", 
+            RowBox[{"I1", "[", 
+             RowBox[{"\[Tau]Up", "+", "\[Tau]Down", "+", "\[Tau]Wait"}], 
+             "]"}]}]}], "}"}], "\[IndentingNewLine]", "/.", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"A", " ", "\[Rule]", " ", "ASlider"}], ",", " ", 
+           RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+           RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+           RowBox[{"\[Tau]Up", " ", "\[Rule]", " ", "\[Tau]UpSlider"}], ",", 
+           " ", 
+           RowBox[{"\[Tau]Down", "\[Rule]", "\[Tau]DownSlider"}], ",", 
+           RowBox[{"\[Tau]Wait", " ", "\[Rule]", "\[Tau]WaitSlider"}], ",", 
+           RowBox[{"n", "\[Rule]", "nSlider"}]}], "}"}]}], ",", "I1", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "0", ",", " ", 
+          RowBox[{"nSlider", "*", 
+           RowBox[{"(", 
+            RowBox[{
+            "\[Tau]UpSlider", "+", "\[Tau]DownSlider", "+", 
+             "\[Tau]WaitSlider"}], ")"}]}]}], "}"}]}], "]"}], 
+      "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numericalTriangleTime", " ", "=", " ", 
+     RowBox[{"numericalTriangleResult", "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numericalTriangleSolve", " ", "=", " ", 
+     RowBox[{"numericalTriangleResult", "[", 
+      RowBox[{"[", 
+       RowBox[{"2", ",", "1"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Plot", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evaluate", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", "\[IndentingNewLine]", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", 
+             "analiticalTriangleSolve"}], ",", "\[IndentingNewLine]", " ", 
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", 
+             "numericalTriangleSolve"}], ",", "\[IndentingNewLine]", " ", 
+            RowBox[{"R", " ", 
+             RowBox[{"TrianglePeriodicPulse", "[", 
+              RowBox[{
+              "A", ",", " ", "\[Tau]Up", ",", " ", "\[Tau]Down", ",", 
+               "\[Tau]Wait", ",", " ", "t"}], "]"}]}]}], 
+           "\[IndentingNewLine]", "}"}], "/.", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"A", " ", "\[Rule]", " ", "ASlider"}], ",", " ", 
+            RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+            RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+            RowBox[{"\[Tau]Up", " ", "\[Rule]", " ", "\[Tau]UpSlider"}], ",", 
+            " ", 
+            RowBox[{"\[Tau]Down", " ", "\[Rule]", " ", "\[Tau]DownSlider"}], 
+            ",", 
+            RowBox[{"\[Tau]Wait", " ", "\[Rule]", " ", "\[Tau]WaitSlider"}]}],
+            "}"}]}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", 
+          RowBox[{"nSlider", "\[Times]", 
+           RowBox[{"(", 
+            RowBox[{
+            "\[Tau]UpSlider", "+", "\[Tau]DownSlider", " ", "+", " ", 
+             "\[Tau]WaitSlider"}], ")"}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"MaxRecursion", "\[Rule]", "10"}], ",", " ", 
+        RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", " ", 
+        RowBox[{"ImageSize", "\[Rule]", " ", "Large"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"analiticalTriangleTime", ",", "numericalTriangleTime"}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Integrate", "[", 
+        RowBox[{
+         RowBox[{"TriangleSinglePulse", "[", 
+          RowBox[{
+          "ASlider", ",", " ", "\[Tau]UpSlider", ",", " ", "\[Tau]DownSlider",
+            ",", "\[Tau]WaitSlider", ",", " ", "t"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+           RowBox[{
+           "\[Tau]UpSlider", "+", "\[Tau]DownSlider", " ", "+", " ", 
+            "\[Tau]WaitSlider"}]}], "}"}]}], "]"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+        "\[Tau]UpSlider", "+", "\[Tau]DownSlider", " ", "+", " ", 
+         "\[Tau]WaitSlider"}], ")"}]}]}], "}"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]UpSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]DownSlider", ",", 
+       RowBox[{"1", "\[Times]", "\[Tau]UpSlider"}]}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]WaitSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"(", 
+         RowBox[{"\[Tau]UpSlider", "+", "\[Tau]DownSlider"}], ")"}]}]}], 
+      "}"}], ",", 
+     RowBox[{"0.01", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{"\[Tau]UpSlider", "+", "\[Tau]DownSlider"}], ")"}]}], ",", " ", 
+     RowBox[{"10", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{"\[Tau]UpSlider", "+", "\[Tau]DownSlider"}], ")"}]}]}], "}"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ASlider", ",", "0.001"}], "}"}], ",", " ", "0.00001", ",", " ",
+      "1"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"RSlider", ",", "500"}], "}"}], ",", " ", "1", ",", " ", 
+     "10000"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"CpSlider", ",", 
+       RowBox[{"5", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "12"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "13"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "7"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"nSlider", ",", " ", "1"}], "}"}], ",", "1", ",", " ", "10", 
+     ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6847392620086603`*^9, 3.684739276636588*^9}, {
+   3.684739362054778*^9, 3.684739377704851*^9}, {3.6847394112943945`*^9, 
+   3.684739533720148*^9}, {3.68473988608401*^9, 3.684739899818929*^9}, {
+   3.6847401344546995`*^9, 3.68474014626795*^9}, {3.6847402309690285`*^9, 
+   3.6847402319434204`*^9}, {3.68474265503448*^9, 3.6847426834977875`*^9}, 
+   3.68474326878518*^9, {3.6847436315851574`*^9, 3.684743632653818*^9}, 
+   3.6847437249695187`*^9, {3.68474386828817*^9, 3.684743903157134*^9}, {
+   3.6847439458475657`*^9, 3.684743975982458*^9}, {3.684744706948926*^9, 
+   3.684744727631549*^9}, {3.684841617512864*^9, 3.6848416189049573`*^9}, {
+   3.6848559389903154`*^9, 3.6848559639928904`*^9}, {3.684855998638996*^9, 
+   3.6848560357970667`*^9}, 3.684862896771943*^9, {3.6848987855423765`*^9, 
+   3.684898789627844*^9}, {3.6849000330559297`*^9, 3.6849000860310287`*^9}, {
+   3.684900126744887*^9, 3.684900133323675*^9}, {3.684934172101858*^9, 
+   3.6849343885297885`*^9}, {3.6849344203354692`*^9, 
+   3.6849344352978373`*^9}, {3.6849928131364355`*^9, 
+   3.6849928730730314`*^9}, {3.6849929163599863`*^9, 
+   3.6849929223817997`*^9}, {3.6849929527852297`*^9, 3.684993017432968*^9}, 
+   3.6849947380700808`*^9, {3.685153882586093*^9, 3.6851538985947556`*^9}, {
+   3.685178193348871*^9, 3.6851781943528085`*^9}, {3.68517822736691*^9, 
+   3.685178241234233*^9}, {3.685178627684579*^9, 3.6851786416941004`*^9}, {
+   3.685179069619447*^9, 3.6851790744306583`*^9}, {3.6851814102296705`*^9, 
+   3.685181414019472*^9}, {3.6851815423567657`*^9, 3.685181646146323*^9}, {
+   3.68518168166002*^9, 3.6851817214057164`*^9}, {3.685181779618995*^9, 
+   3.685181819350775*^9}, {3.6851818497426944`*^9, 3.6851818871554747`*^9}, {
+   3.6851819365929146`*^9, 3.6851819411251583`*^9}, {3.6851893395622344`*^9, 
+   3.685189452365815*^9}, {3.68518948316143*^9, 3.6851895324649076`*^9}, 
+   3.685189604387701*^9, 3.6851918429879713`*^9, 3.685255166060507*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"analiticalTrapezeResult", " ", "=", " ", 
+   RowBox[{"Timing", "[", 
+    RowBox[{"DSolve", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"TrapezeSinglePulse", "[", 
+          RowBox[{
+          "A", ",", " ", "\[Tau]Up", ",", "\[Tau]Plane", ",", " ", 
+           "\[Tau]Down", ",", " ", "\[Tau]Wait", ",", "t"}], "]"}], " ", 
+         "\[Equal]", " ", 
+         RowBox[{
+          RowBox[{"I1", "[", "t", "]"}], "+", 
+          RowBox[{"I2", "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"I2", "[", "t", "]"}], "/", "Cp"}], "\[Equal]", 
+         RowBox[{"R", " ", 
+          RowBox[{
+           RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"I1", "[", "0", "]"}], "\[Equal]", 
+         RowBox[{"I1", "[", 
+          RowBox[{
+          "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+           "\[Tau]Wait"}], "]"}]}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"I1", ",", "I2"}], "}"}], ",", "t"}], "]"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"analiticalTrapezeTime", " ", "=", " ", 
+   RowBox[{"analiticalTrapezeResult", "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"analiticalTrapezeSolve", " ", "=", " ", 
+   RowBox[{"analiticalTrapezeResult", "[", 
+    RowBox[{"[", 
+     RowBox[{"2", ",", "1"}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.684899833189622*^9, 3.6848998730580654`*^9}, {
+   3.6848999526356955`*^9, 3.6848999617719593`*^9}, {3.6849005364205227`*^9, 
+   3.6849005508283577`*^9}, 3.6849005846690707`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"numericalTrapezeResult", " ", "=", " ", 
+     RowBox[{"Timing", "[", "\[IndentingNewLine]", 
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"TrapezeSinglePulse", "[", 
+                RowBox[{
+                "A", ",", " ", "\[Tau]Up", ",", "\[Tau]Plane", ",", 
+                 "\[Tau]Down", ",", " ", "\[Tau]Wait", ",", "t"}], "]"}], " ",
+                "-", " ", 
+               RowBox[{"I1", "[", "t", "]"}]}], ")"}], "/", "Cp"}], 
+            "\[Equal]", 
+            RowBox[{"R", " ", 
+             RowBox[{
+              RowBox[{"I1", "'"}], "[", "t", "]"}]}]}], ",", 
+           RowBox[{
+            RowBox[{"I1", "[", "0", "]"}], "\[Equal]", " ", 
+            RowBox[{"I1", "[", 
+             RowBox[{
+             "\[Tau]Up", "+", "\[Tau]Plane", "+", "\[Tau]Down", "+", 
+              "\[Tau]Wait"}], "]"}]}]}], "}"}], "\[IndentingNewLine]", "/.", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"A", " ", "\[Rule]", " ", "ASlider"}], ",", " ", 
+           RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+           RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+           RowBox[{"\[Tau]Up", " ", "\[Rule]", " ", "\[Tau]UpSlider"}], ",", 
+           " ", 
+           RowBox[{"\[Tau]Plane", "->", "\[Tau]PlaneSlider"}], ",", 
+           RowBox[{"\[Tau]Down", "\[Rule]", "\[Tau]DownSlider"}], ",", 
+           RowBox[{"\[Tau]Wait", " ", "\[Rule]", "\[Tau]WaitSlider"}], ",", 
+           RowBox[{"n", "\[Rule]", "nSlider"}]}], "}"}]}], ",", "I1", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "0", ",", " ", 
+          RowBox[{"nSlider", "*", 
+           RowBox[{"(", 
+            RowBox[{
+            "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", 
+             "\[Tau]DownSlider", "+", "\[Tau]WaitSlider"}], ")"}]}]}], 
+         "}"}]}], "]"}], "\[IndentingNewLine]", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"numericalTrapezeTime", " ", "=", " ", 
+     RowBox[{"numericalTrapezeResult", "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"numericalTrapezeSolve", " ", "=", " ", 
+     RowBox[{"numericalTrapezeResult", "[", 
+      RowBox[{"[", 
+       RowBox[{"2", ",", "1"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Plot", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Evaluate", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", 
+             "analiticalTrapezeSolve"}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"R", " ", 
+              RowBox[{"I1", "[", "t", "]"}]}], "/.", 
+             "numericalTrapezeSolve"}], ",", "\[IndentingNewLine]", 
+            RowBox[{"R", " ", 
+             RowBox[{"TrapezePeriodicPulse", "[", 
+              RowBox[{
+              "A", ",", " ", "\[Tau]Up", ",", "\[Tau]Plane", ",", " ", 
+               "\[Tau]Down", ",", "\[Tau]Wait", ",", " ", "t"}], "]"}]}]}], 
+           "\[IndentingNewLine]", "}"}], "/.", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"A", " ", "\[Rule]", " ", "ASlider"}], ",", " ", 
+            RowBox[{"R", " ", "\[Rule]", " ", "RSlider"}], ",", " ", 
+            RowBox[{"Cp", " ", "\[Rule]", " ", "CpSlider"}], ",", " ", 
+            RowBox[{"\[Tau]Up", " ", "\[Rule]", " ", "\[Tau]UpSlider"}], ",", 
+            " ", 
+            RowBox[{"\[Tau]Plane", "->", "\[Tau]PlaneSlider"}], ",", 
+            RowBox[{"\[Tau]Down", " ", "\[Rule]", " ", "\[Tau]DownSlider"}], 
+            ",", 
+            RowBox[{"\[Tau]Wait", " ", "\[Rule]", " ", "\[Tau]WaitSlider"}]}],
+            "}"}]}], "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]",
+         "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", 
+          RowBox[{"nSlider", "*", 
+           RowBox[{"(", 
+            RowBox[{
+            "\[Tau]UpSlider", "+", "\[Tau]DownSlider", " ", "+", " ", 
+             "\[Tau]WaitSlider"}], ")"}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"MaxRecursion", "\[Rule]", "10"}], ",", " ", 
+        RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", " ", 
+        RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"analiticalPlaneTime", ",", "numericalPlaneTime"}], "}"}], ",",
+       "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Integrate", "[", 
+        RowBox[{
+         RowBox[{"TrapezeSinglePulse", "[", 
+          RowBox[{
+          "ASlider", ",", " ", "\[Tau]UpSlider", ",", " ", 
+           "\[Tau]PlaneSlider", ",", "\[Tau]DownSlider", ",", 
+           "\[Tau]WaitSlider", ",", " ", "t"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", "0", ",", 
+           RowBox[{
+           "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", 
+            "\[Tau]DownSlider", " ", "+", " ", "\[Tau]WaitSlider"}]}], 
+          "}"}]}], "]"}], "/", 
+       RowBox[{"(", 
+        RowBox[{
+        "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider", 
+         " ", "+", " ", "\[Tau]WaitSlider"}], ")"}]}]}], "}"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]UpSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]PlaneSlider", ",", 
+       RowBox[{"1", "\[Times]", "\[Tau]UpSlider"}]}], "}"}], ",", " ", "0", 
+     ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]DownSlider", ",", 
+       RowBox[{"1", "\[Times]", "\[Tau]UpSlider"}]}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]WaitSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"(", 
+         RowBox[{
+         "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", 
+          "\[Tau]DownSlider"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"0.5", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{
+       "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider"}], 
+       ")"}]}], ",", " ", 
+     RowBox[{"10", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{
+       "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider"}], 
+       ")"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ASlider", ",", "0.001"}], "}"}], ",", " ", "0.0001", ",", " ", 
+     "1"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"RSlider", ",", "500"}], "}"}], ",", " ", "1", ",", " ", 
+     "10000"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"CpSlider", ",", 
+       RowBox[{"5", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "12"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "13"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "11"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"nSlider", ",", " ", "1"}], "}"}], ",", "1", ",", " ", "10", 
+     ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6848998935770645`*^9, 3.6848999435672884`*^9}, {
+   3.6848999762252727`*^9, 3.6848999766315126`*^9}, 3.684900591598427*^9, {
+   3.684933517579424*^9, 3.6849335228477592`*^9}, {3.6849935310430946`*^9, 
+   3.6849935834317265`*^9}, {3.684993749442237*^9, 3.684993756296281*^9}, {
+   3.6849939278007326`*^9, 3.684994036855157*^9}, {3.6849941190563912`*^9, 
+   3.6849941487983637`*^9}, {3.684994236611583*^9, 3.684994262363819*^9}, {
+   3.6849943021427*^9, 3.6849943143190155`*^9}, 3.6849947316450477`*^9, {
+   3.685189588888439*^9, 3.685189589306546*^9}, {3.6851896561122327`*^9, 
+   3.685189712506955*^9}, {3.6851897923219476`*^9, 3.6851897978303213`*^9}, 
+   3.685191853665943*^9, 3.6852551692522345`*^9}],
+
+Cell[BoxData[
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"\:041a\:043e\:0433\:0434\:0430", " ", "\:0421p"}], " ", "=", " ",
+     "Infinity"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "\:0442\:043e\:043a", " ", "\:0447\:0435\:0440\:0435\:0437", " ", 
+      "\:0440\:0435\:0437\:0438\:0441\:0442\:043e\:0440", " ", 
+      "\:0432\:044b\:0445\:043e\:0434\:0438\:0442", " ", "\:043d\:0430", " ", 
+      RowBox[{
+      "\:043f\:043b\:0430\:043d\:043a\:0443", ".", " ", 
+       "\:0412\:043e\:043f\:0440\:043e\:0441"}]}], " ", "-", " ", 
+     RowBox[{"\:043d\:0430", " ", 
+      RowBox[{"\:043a\:0430\:043a\:0443\:044e", "?"}]}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Integral", "[", 
+       RowBox[{"I_R", " ", "*", " ", "R", " ", "*", " ", "I"}], "]"}], " ", 
+      "from", " ", "0", " ", "to", " ", "T"}], " ", "=", " ", 
+     RowBox[{
+      RowBox[{"Integral", "[", 
+       RowBox[{
+        RowBox[{"I_R", "^", "2"}], " ", "*", " ", "R"}], "]"}], " ", "from", 
+      " ", "0", " ", "to", " ", "T"}]}], " ", ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+     "\:0422", ".", "\:0435", ".", " ", "\:0440\:0430\:0432\:043d\:044b"}], 
+     " ", "\:043c\:043e\:0449\:043d\:043e\:0441\:0442\:0438", " ", 
+     "\:0437\:0430", " ", "\:043f\:0435\:0440\:0438\:043e\:0434"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\:0422\:043e\:0433\:0434\:0430", " ", "I_R"}], " ", "=", " ", 
+     RowBox[{
+     "\:0441\:0440\:0435\:0434\:043d\:0435\:0435", " ", "\:043f\:043e", " ", 
+      "\:043f\:0435\:0440\:0438\:043e\:0434\:0443"}]}], ";"}]}], 
+  "\[IndentingNewLine]", "*)"}]], "Input",
+ CellChangeTimes->{{3.6851790855319605`*^9, 3.6851791957508802`*^9}, {
+  3.6851792759635067`*^9, 3.6851792877853756`*^9}, {3.6851896224109106`*^9, 
+  3.685189631221156*^9}, {3.68519292901633*^9, 3.685192929706069*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "\:0417\:043d\:0430\:044f", " ", "\:0442\:043e\:043a", " ", 
+     "\:0447\:0435\:0440\:0435\:0437", " ", 
+     "\:0440\:0435\:0437\:0438\:0441\:0442\:043e\:0440"}], ",", " ", 
+    RowBox[{
+    "\:043d\:0443\:0436\:043d\:043e", " ", "\:043d\:0430\:0439\:0442\:0438", 
+     " ", "\:0438\:0441\:0445\:043e\:0434\:043d\:044b\:0439", " ", 
+     "\:0438\:043c\:043f\:0443\:043b\:044c\:0441"}]}], "\[IndentingNewLine]", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"PulsePlane", "[", 
+      RowBox[{
+      "A0_", ",", " ", "R0_", ",", " ", "Cp0_", ",", " ", "\[Tau]Pulse0_", 
+       ",", "\[Tau]Wait0_", ",", "t_"}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"I1", "/.", 
+            RowBox[{"analiticalPlaneSolve", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "t", "]"}], "+", 
+         RowBox[{"R", "*", "Cp", "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"I1", "/.", 
+               RowBox[{"analiticalPlaneSolve", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "\[Tau]", "]"}],
+             ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Tau]", ",", "1"}], "}"}]}], "]"}]}]}], "/.", 
+        RowBox[{"\[Tau]", "\[Rule]", "t"}]}], ")"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"A", "\[Rule]", "A0"}], ",", 
+        RowBox[{"R", "\[Rule]", "R0"}], ",", 
+        RowBox[{"Cp", "\[Rule]", "Cp0"}], ",", 
+        RowBox[{"\[Tau]Pulse", "\[Rule]", "\[Tau]Pulse0"}], ",", " ", 
+        RowBox[{"\[Tau]Wait", "\[Rule]", "\[Tau]Wait0"}]}], "}"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"PulseTriangle", "[", 
+      RowBox[{
+      "A0_", ",", " ", "R0_", ",", " ", "Cp0_", ",", " ", "\[Tau]Up0_", ",", 
+       " ", "\[Tau]Down0_", ",", "\[Tau]Wait0_", ",", "t_"}], "]"}], " ", ":=",
+      " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"I1", "/.", 
+            RowBox[{"analiticalTriangleSolve", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "t", "]"}], "+", 
+         RowBox[{"R", "*", "Cp", "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"I1", "/.", 
+               RowBox[{"analiticalTriangleSolve", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "\[Tau]", "]"}],
+             ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Tau]", ",", "1"}], "}"}]}], "]"}]}]}], "/.", 
+        RowBox[{"\[Tau]", "\[Rule]", "t"}]}], ")"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"A", "\[Rule]", "A0"}], ",", 
+        RowBox[{"R", "\[Rule]", "R0"}], ",", 
+        RowBox[{"Cp", "\[Rule]", "Cp0"}], ",", 
+        RowBox[{"\[Tau]Up", "\[Rule]", "\[Tau]Up0"}], ",", " ", 
+        RowBox[{"\[Tau]Down", "\[Rule]", "\[Tau]Down0"}], ",", " ", 
+        RowBox[{"\[Tau]Wait", "\[Rule]", "\[Tau]Wait0"}]}], "}"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"PulseTrapeze", "[", 
+      RowBox[{
+      "A0_", ",", " ", "R0_", ",", " ", "Cp0_", ",", " ", "\[Tau]Up0_", ",", 
+       " ", "\[Tau]Plane0_", ",", "\[Tau]Down0_", ",", "\[Tau]Wait0_", ",", 
+       "t_"}], "]"}], " ", ":=", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"I1", "/.", 
+            RowBox[{"analiticalTrapezeSolve", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "t", "]"}], "+", 
+         RowBox[{"R", "*", "Cp", "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"I1", "/.", 
+               RowBox[{"analiticalTrapezeSolve", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "[", "\[Tau]", "]"}],
+             ",", 
+            RowBox[{"{", 
+             RowBox[{"\[Tau]", ",", "1"}], "}"}]}], "]"}]}]}], "/.", 
+        RowBox[{"\[Tau]", "\[Rule]", "t"}]}], ")"}], "/.", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"A", "\[Rule]", "A0"}], ",", 
+        RowBox[{"R", "\[Rule]", "R0"}], ",", 
+        RowBox[{"Cp", "\[Rule]", "Cp0"}], ",", 
+        RowBox[{"\[Tau]Up", "\[Rule]", "\[Tau]Up0"}], ",", " ", 
+        RowBox[{"\[Tau]Plane", "\[Rule]", "\[Tau]Plane0"}], ",", 
+        RowBox[{"\[Tau]Down", "\[Rule]", "\[Tau]Down0"}], ",", " ", 
+        RowBox[{"\[Tau]Wait", "\[Rule]", "\[Tau]Wait0"}]}], "}"}]}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.6852412852858295`*^9, 3.68524128621168*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"PulsePlane", "[", 
+        RowBox[{"ASlider", ",", "RSlider", ",", " ", "CpSlider", ",", " ", 
+         RowBox[{
+         "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", 
+          "\[Tau]DownSlider"}], ",", "\[Tau]WaitSlider", ",", "t"}], "]"}], 
+       ",", "\[IndentingNewLine]", 
+       RowBox[{"PulseTriangle", "[", 
+        RowBox[{"ASlider", ",", "RSlider", ",", " ", "CpSlider", ",", " ", 
+         RowBox[{"\[Tau]UpSlider", "+", 
+          RowBox[{"\[Tau]PlaneSlider", "/", "2"}]}], ",", 
+         RowBox[{
+          RowBox[{"\[Tau]PlaneSlider", "/", "2"}], "+", "\[Tau]DownSlider"}], 
+         ",", "\[Tau]WaitSlider", ",", "t"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PulseTrapeze", "[", 
+        RowBox[{
+        "ASlider", ",", "RSlider", ",", " ", "CpSlider", ",", " ", 
+         "\[Tau]UpSlider", ",", "\[Tau]PlaneSlider", ",", "\[Tau]DownSlider", 
+         ",", "\[Tau]WaitSlider", ",", "t"}], "]"}]}], "\[IndentingNewLine]", 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", 
+       RowBox[{"(", 
+        RowBox[{
+        "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider", 
+         "+", "\[Tau]WaitSlider"}], ")"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"MaxRecursion", "\[Rule]", "10"}], ",", " ", 
+     RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", 
+     RowBox[{"Exclusions", "\[Rule]", "None"}], ",", " ", 
+     RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]UpSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "9"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]PlaneSlider", ",", 
+       RowBox[{"1", "\[Times]", "\[Tau]UpSlider"}]}], "}"}], ",", " ", "0", 
+     ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]DownSlider", ",", 
+       RowBox[{"1", "\[Times]", "\[Tau]UpSlider"}]}], "}"}], ",", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "9"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "8"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]WaitSlider", ",", 
+       RowBox[{"4", "\[Times]", 
+        RowBox[{"(", 
+         RowBox[{
+         "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", 
+          "\[Tau]DownSlider"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"0.5", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{
+       "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider"}], 
+       ")"}]}], ",", " ", 
+     RowBox[{"10", "\[Times]", 
+      RowBox[{"(", 
+       RowBox[{
+       "\[Tau]UpSlider", "+", "\[Tau]PlaneSlider", "+", "\[Tau]DownSlider"}], 
+       ")"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"ASlider", ",", "0.001"}], "}"}], ",", " ", "0.0001", ",", " ", 
+     "1"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"RSlider", ",", "500"}], "}"}], ",", " ", "1", ",", " ", 
+     "10000"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"CpSlider", ",", 
+       RowBox[{"5", "\[Times]", 
+        RowBox[{"10", "^", 
+         RowBox[{"-", "12"}]}]}]}], "}"}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "13"}]}], ",", " ", 
+     RowBox[{"10", "^", 
+      RowBox[{"-", "11"}]}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.6851897507507486`*^9, 3.6851897731499996`*^9}, {
+   3.6851914471913233`*^9, 3.685191676303407*^9}, {3.685192140463314*^9, 
+   3.685192157428955*^9}, {3.685192195810566*^9, 3.6851921962949314`*^9}, {
+   3.6851923646491747`*^9, 3.6851923822750373`*^9}, {3.6851924399027157`*^9, 
+   3.6851924401995926`*^9}, 3.6851998952320147`*^9, {3.6852000815811386`*^9, 
+   3.6852000904355307`*^9}, {3.6852402427903566`*^9, 3.685240298720045*^9}, {
+   3.6852403620711346`*^9, 3.6852403681418505`*^9}, 3.6852405808391933`*^9, {
+   3.685240934096121*^9, 3.6852409549580894`*^9}, {3.6852410772698345`*^9, 
+   3.685241079056157*^9}, {3.6852412704837217`*^9, 3.685241450631505*^9}}]
+},
+WindowSize->{1344, 685},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 209, 4, 47, "Input"],
+Cell[770, 26, 588, 18, 47, "Input"],
+Cell[1361, 46, 15736, 425, 1130, "Input"],
+Cell[17100, 473, 2871, 55, 143, "Input"],
+Cell[19974, 530, 8612, 189, 613, "Input"],
+Cell[28589, 721, 2870, 58, 87, "Input"],
+Cell[31462, 781, 9277, 206, 651, "Input"],
+Cell[40742, 989, 1660, 43, 106, "Input"],
+Cell[42405, 1034, 8790, 210, 708, "Input"],
+Cell[51198, 1246, 1898, 42, 126, "Input"],
+Cell[53099, 1290, 4838, 124, 275, "Input"],
+Cell[57940, 1416, 4735, 116, 351, "Input"]
+}
+]
+*)
+

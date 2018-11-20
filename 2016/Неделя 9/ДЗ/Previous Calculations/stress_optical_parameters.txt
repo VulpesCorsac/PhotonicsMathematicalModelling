@@ -1,0 +1,17 @@
+nSi 3.5 Refractive index, silicon (Si)
+nSiO2 1.445 Refractive index, silica (SiO2)
+deltan 0.0075 Relative index difference
+nCore nSiO2/sqrt(1-2*deltan) Refractive index, core (doped SiO2)
+alphaSi 2.5e-6[1/K] Thermal expansion coefficient, silicon
+alphaSiO2 0.35e-6[1/K] Thermal expansion coefficient, silica
+ESi 110[GPa] Young's modulus, silicon
+ESiO2 78[GPa] Young's modulus, silica
+nuSi 0.19 Poisson's ratio, silicon
+nuSiO2 0.17 Poisson's ratio, silica
+rhoSi 2330[kg/m^3] Density, silicon
+rhoSiO2 2203[kg/m^3] Density, silica
+B1 0.65e-12[m^2/N] First stress optical coefficient
+B2 4.2e-12[m^2/N] Second stress optical coefficient
+T1 20[degC] Operating temperature
+T0 1000[degC] Reference temperature
+lambda0_ewfd 1.55[um] Free space wavelength

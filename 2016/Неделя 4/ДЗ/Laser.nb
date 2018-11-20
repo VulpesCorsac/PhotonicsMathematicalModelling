@@ -1,0 +1,795 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     30985,        786]
+NotebookOptionsPosition[     29982,        751]
+NotebookOutlinePosition[     30327,        766]
+CellTagsIndexPosition[     30284,        763]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"\[Sigma]", "=", 
+     RowBox[{
+      RowBox[{"Import", "[", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+        "\"\<CrossSection.xls\>\""}], "]"}], "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", 
+        RowBox[{"5", ";;"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"12", ",", "15", ",", "16"}], "}"}]}], "]"}], "]"}]}], ")"}],
+    "//", "TableForm"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListPlot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\[Sigma]", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2"}], "}"}]}], "]"}], "]"}], ",", 
+      RowBox[{"\[Sigma]", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "3"}], "}"}]}], "]"}], "]"}]}], "}"}], ",", 
+    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+    RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]e", "=", 
+   RowBox[{"Interpolation", "[", 
+    RowBox[{"\[Sigma]", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2"}], "}"}]}], "]"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]a", "=", 
+   RowBox[{"Interpolation", "[", 
+    RowBox[{"\[Sigma]", "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "3"}], "}"}]}], "]"}], "]"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.688794249681611*^9, 3.6887942852815332`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"c", "=", 
+    RowBox[{"3", " ", 
+     SuperscriptBox["10", "8"]}]}], ";"}], 
+  RowBox[{"(*", " ", 
+   FractionBox["\:043c", "\:0441"], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Tau]", "=", 
+    RowBox[{"1.45", " ", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "3"}]]}]}], ";"}], 
+  RowBox[{"(*", " ", "\:0441", " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NN", "=", "300"}], ";"}], 
+  RowBox[{"(*", " ", "ppm", " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"NN", "=", 
+    RowBox[{"6.62", " ", 
+     SuperscriptBox["10", "22"], "\[Times]", " ", "NN"}]}], ";"}], 
+  RowBox[{"(*", " ", 
+   FractionBox["1", 
+    SuperscriptBox["\:043c", "3"]], " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"h", "=", 
+    RowBox[{"6.63", " ", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "34"}]]}]}], ";"}], 
+  RowBox[{
+  "(*", " ", "\:041f\:043b\:0430\:043d\:043a", " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Aeff", "=", 
+    RowBox[{
+     FractionBox["Pi", "4"], "\[Times]", 
+     SuperscriptBox["7", "2"], 
+     SuperscriptBox["10", 
+      RowBox[{"-", "12"}]]}]}], ";"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "\:042d\:0444\:0444\:0435\:043a\:0442\:0438\:0432\:043d\:0430\:044f", " ", 
+    "\:043f\:043b\:043e\:0449\:0430\:0434\:044c", " ", 
+    "\:043c\:043e\:0434\:044b"}], " ", "*)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Lambda]p", "=", "960"}], ";"}], 
+  RowBox[{"(*", " ", "\:043d\:043c", " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Lambda]s", "=", "1064"}], ";"}], 
+  RowBox[{"(*", " ", "\:043d\:043c", " ", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ps", "=", 
+   FractionBox[
+    RowBox[{"Aeff", " ", "h", " ", "c"}], 
+    RowBox[{"\[Lambda]s", " ", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "9"}]]}]]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Pp", "=", 
+    FractionBox[
+     RowBox[{"Aeff", " ", "h", " ", "c"}], 
+     RowBox[{"\[Lambda]p", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "9"}]]}]]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"L", "=", "2"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]p12", "=", 
+   RowBox[{"\[Sigma]a", "[", "\[Lambda]p", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]p21", "=", 
+   RowBox[{"\[Sigma]e", "[", "\[Lambda]p", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]s12", "=", 
+   RowBox[{"\[Sigma]a", "[", "\[Lambda]s", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Sigma]s21", "=", 
+   RowBox[{"\[Sigma]e", "[", "\[Lambda]s", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.688794311197551*^9, 3.688794383530261*^9}, {
+   3.6887944232804623`*^9, 3.6887944870199394`*^9}, 3.688794524030425*^9, {
+   3.6888775665669813`*^9, 3.6888775733724394`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"laserEquations", "=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Rho]p", "[", "z", "]"}], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Sigma]p12", " ", 
+           RowBox[{"N1", "[", "z", "]"}]}], "-", 
+          RowBox[{"\[Sigma]p21", " ", 
+           RowBox[{"N2", "[", "z", "]"}]}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Rho]sr", "[", "z", "]"}], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Sigma]s12", " ", 
+           RowBox[{"N1", "[", "z", "]"}]}], "-", 
+          RowBox[{"\[Sigma]s21", " ", 
+           RowBox[{"N2", "[", "z", "]"}]}]}], ")"}]}], "+", 
+       RowBox[{
+        RowBox[{"\[Rho]sl", "[", "z", "]"}], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"\[Sigma]s12", " ", 
+           RowBox[{"N1", "[", "z", "]"}]}], "-", 
+          RowBox[{"\[Sigma]s21", " ", 
+           RowBox[{"N2", "[", "z", "]"}]}]}], ")"}]}], "-", 
+       FractionBox[
+        RowBox[{"N2", "[", "z", "]"}], "\[Tau]"]}], "\[Equal]", "0"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Rho]sr", "'"}], "[", "z", "]"}], "\[Equal]", 
+      RowBox[{
+       RowBox[{"+", 
+        RowBox[{"\[Rho]sr", "[", "z", "]"}]}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"\[Sigma]s21", " ", 
+          RowBox[{"N2", "[", "z", "]"}]}], "-", 
+         RowBox[{"\[Sigma]s12", " ", 
+          RowBox[{"N1", "[", "z", "]"}]}]}], ")"}]}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Rho]sl", "'"}], "[", "z", "]"}], "\[Equal]", 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"\[Rho]sl", "[", "z", "]"}]}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"\[Sigma]s21", " ", 
+          RowBox[{"N2", "[", "z", "]"}]}], "-", 
+         RowBox[{"\[Sigma]s12", " ", 
+          RowBox[{"N1", "[", "z", "]"}]}]}], ")"}]}]}], ",", 
+     "\[IndentingNewLine]", "  ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"\[Rho]p", "'"}], "[", "z", "]"}], "\[Equal]", 
+      RowBox[{
+       RowBox[{"+", 
+        RowBox[{"\[Rho]p", "[", "z", "]"}]}], "    ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"\[Sigma]p21", " ", 
+          RowBox[{"N2", "[", "z", "]"}]}], "-", 
+         RowBox[{"\[Sigma]p12", " ", 
+          RowBox[{"N1", "[", "z", "]"}]}]}], ")"}]}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"N1", "[", "z", "]"}], "+", 
+       RowBox[{"N2", "[", "z", "]"}]}], "\[Equal]", "NN"}]}], 
+    "\[IndentingNewLine]", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ni", "=", 
+   RowBox[{
+    RowBox[{"Solve", "[", 
+     RowBox[{
+      RowBox[{"laserEquations", "[", 
+       RowBox[{"[", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "5"}], "}"}], "]"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"N1", "[", "z", "]"}], ",", 
+        RowBox[{"N2", "[", "z", "]"}]}], "}"}]}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"laserEquationsSimplified", " ", "=", " ", 
+   RowBox[{"Simplify", "[", 
+    RowBox[{
+     RowBox[{"laserEquations", "[", 
+      RowBox[{"[", 
+       RowBox[{"2", ";;", "4"}], "]"}], "]"}], "/.", "Ni"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.6887945278692284`*^9, 3.688794605497863*^9}, {
+   3.6887947300221643`*^9, 3.688794753700325*^9}, {3.6887949686945524`*^9, 
+   3.6887949688820543`*^9}, {3.688796666058243*^9, 3.688796672202158*^9}, 
+   3.688957836976096*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"OutputPowerFunction", "[", 
+    RowBox[{
+     RowBox[{"Rout_", "?", "NumericQ"}], ",", 
+     RowBox[{"R_", "?", "NumberQ"}], ",", 
+     RowBox[{"pP0_", "?", "NumberQ"}]}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"Ps", " ", 
+      RowBox[{"\[Rho]sl", "[", "0", "]"}], 
+      RowBox[{"(", 
+       RowBox[{"1", "-", "Rout"}], ")"}]}], ")"}], "/.", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"laserEquationsSimplified", ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"\[Rho]p", "[", "0", "]"}], "\[Equal]", 
+           FractionBox["pP0", "Pp"]}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"R", " ", 
+            RowBox[{"\[Rho]sr", "[", "L", "]"}]}], "\[Equal]", 
+           RowBox[{"\[Rho]sl", "[", "L", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"\[Rho]sr", "[", "0", "]"}], "\[Equal]", 
+           RowBox[{"Rout", " ", 
+            RowBox[{"\[Rho]sl", "[", "0", "]"}]}]}]}], "\[IndentingNewLine]", 
+         "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]p", ",", "\[Rho]sr", ",", "\[Rho]sl"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"z", ",", "0", ",", "L"}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"AccuracyGoal", "\[Rule]", 
+         RowBox[{"-", "15"}]}], ",", 
+        RowBox[{"Method", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Shooting\>\"", ",", 
+           RowBox[{"\"\<StartingInitialConditions\>\"", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Ps", " ", 
+                RowBox[{"\[Rho]sr", "[", "0", "]"}]}], "\[Equal]", "20"}], 
+              ",", 
+              RowBox[{
+               RowBox[{"Ps", " ", 
+                RowBox[{"\[Rho]sl", "[", "0", "]"}]}], "\[Equal]", "20"}]}], 
+             "}"}]}]}], "}"}]}]}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.688795369322789*^9, 3.6887953712360163`*^9}, {
+  3.6887954342334423`*^9, 3.688795460070358*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Off", "[", 
+  StyleBox[
+   RowBox[{"FindRoot", "::", "sszero"}], "MessageName"], 
+  StyleBox["]", "MessageName"]}], "\[IndentingNewLine]", 
+ RowBox[{"Off", "[", 
+  StyleBox[
+   RowBox[{"FindMaxValue", "::", "lstol"}], "MessageName"], 
+  StyleBox["]", "MessageName"]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Rvariable", "=", "0.95"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pP0variable", "=", "0.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"maxOut", "=", 
+    RowBox[{"FindMaxValue", "[", 
+     RowBox[{
+      RowBox[{"OutputPowerFunction", "[", 
+       RowBox[{"RoutFind", ",", "Rvariable", ",", "pP0variable"}], "]"}], ",",
+       "RoutFind"}], "]"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Rmax", "=", 
+    RowBox[{"RoutFind", "/.", 
+     RowBox[{"FindRoot", "[", 
+      RowBox[{
+       RowBox[{"maxOut", "\[Equal]", 
+        RowBox[{"OutputPowerFunction", "[", 
+         RowBox[{"RoutFind", ",", "Rvariable", ",", "pP0variable"}], "]"}]}], 
+       ",", 
+       RowBox[{"{", 
+        RowBox[{"RoutFind", ",", "0.1"}], "}"}]}], "]"}]}]}]}], 
+  "}"}]}], "Input",
+ CellChangeTimes->{{3.6889103283951063`*^9, 3.6889103437334785`*^9}, {
+  3.6889105667744393`*^9, 3.688910577512296*^9}, {3.6889107841624336`*^9, 
+  3.6889108443059216`*^9}, {3.688911371928667*^9, 3.688911451957446*^9}, {
+  3.6889125103127036`*^9, 3.6889125195668154`*^9}, {3.68895736519759*^9, 
+  3.688957365745599*^9}, {3.688957785311411*^9, 3.6889577949855394`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.40880198997313444`", ",", "0.34194284825877014`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.6889634420928307`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"LogLinearPlot", "[", 
+    RowBox[{
+     RowBox[{"OutputPowerFunction", "[", 
+      RowBox[{"Rout", ",", "R", ",", "pP0"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Rout", ",", "0.001", ",", "1"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"MaxRecursion", "\[Rule]", "2"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"R", ",", "0.95"}], "}"}], ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"pP0", ",", "0.5"}], "}"}], ",", "0.01", ",", "50"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.6887950279698224`*^9, 3.6887952263782873`*^9}, {
+   3.688795260645937*^9, 3.688795287595851*^9}, {3.688795465882943*^9, 
+   3.688795509038968*^9}, {3.6887968954571376`*^9, 3.688796897721238*^9}, {
+   3.688910123664016*^9, 3.6889101465263267`*^9}, {3.688910177084607*^9, 
+   3.6889101973920636`*^9}, 3.688911083387727*^9, {3.6889592642159348`*^9, 
+   3.6889592681968923`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`pP0$$ = 0.5, $CellContext`R$$ = 0.95, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`R$$], 0.95}, 0, 1}, {{
+       Hold[$CellContext`pP0$$], 0.5}, 0.01, 50}}, Typeset`size$$ = {
+    576., {174., 179.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`R$295927$$ = 
+    0, $CellContext`pP0$295928$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`pP0$$ = 0.5, $CellContext`R$$ = 0.95}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`R$$, $CellContext`R$295927$$, 0], 
+        Hold[$CellContext`pP0$$, $CellContext`pP0$295928$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> LogLinearPlot[
+        $CellContext`OutputPowerFunction[$CellContext`Rout, $CellContext`R$$, \
+$CellContext`pP0$$], {$CellContext`Rout, 0.001, 1}, PlotRange -> All, 
+        MaxRecursion -> 2, ImageSize -> Large], 
+      "Specifications" :> {{{$CellContext`R$$, 0.95}, 0, 
+         1}, {{$CellContext`pP0$$, 0.5}, 0.01, 50}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{627., {234., 241.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.6889101135520697`*^9, 3.688910147553557*^9, 
+  3.6889102053730545`*^9, 3.688910685836873*^9, 3.6889148723039255`*^9, 
+  3.688957304979757*^9, 3.6889592862582865`*^9}]
+}, Open  ]],
+
+Cell["\:041f\:043e\:0442\:0435\:0440\:0438: \:043d\:0430\:043a\:0430\:0447\
+\:043a\:0430, \:0441\:043f\:043e\:043d\:0442\:0430\:043d, \:0437\:0435\:0440\
+\:043a\:0430\:043b\:043e, \:0440\:0430\:0437\:043c\:0435\:043d", "Text",
+ CellChangeTimes->{{3.6889606037335343`*^9, 3.6889607808874407`*^9}, {
+  3.6889608333877935`*^9, 3.688960849141058*^9}, {3.6889631859718227`*^9, 
+  3.688963197106164*^9}, {3.6889683639932866`*^9, 3.6889683757171745`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"Off", "[", 
+  StyleBox[
+   RowBox[{"FindRoot", "::", "sszero"}], "MessageName"], 
+  StyleBox["]", "MessageName"]}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"solution", "=", 
+     RowBox[{
+      RowBox[{"NDSolve", "[", 
+       RowBox[{
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"laserEquationsSimplified", ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"\[Rho]p", "[", "0", "]"}], "\[Equal]", 
+           FractionBox["pP0", "Pp"]}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"R", " ", 
+            RowBox[{"\[Rho]sr", "[", "L", "]"}]}], "\[Equal]", 
+           RowBox[{"\[Rho]sl", "[", "L", "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"\[Rho]sr", "[", "0", "]"}], "\[Equal]", 
+           RowBox[{"Rout", " ", 
+            RowBox[{"\[Rho]sl", "[", "0", "]"}]}]}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\[Rho]p", ",", "\[Rho]sr", ",", "\[Rho]sl"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"z", ",", "0", ",", "L"}], "}"}], ",", 
+        RowBox[{"AccuracyGoal", "\[Rule]", 
+         RowBox[{"-", "15"}]}], ",", 
+        RowBox[{"Method", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"\"\<Shooting\>\"", ",", 
+           RowBox[{"\"\<StartingInitialConditions\>\"", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Ps", " ", 
+                RowBox[{"\[Rho]sr", "[", "0", "]"}]}], "\[Equal]", "20"}], 
+              ",", 
+              RowBox[{
+               RowBox[{"Ps", " ", 
+                RowBox[{"\[Rho]sl", "[", "0", "]"}]}], "\[Equal]", "20"}]}], 
+             "}"}]}]}], "}"}]}]}], "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"OutputPowerFunction", "[", 
+       RowBox[{"Rout", ",", "R", ",", "pP0"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"Evaluate", "[", 
+         RowBox[{
+          RowBox[{"{", " ", 
+           RowBox[{
+            RowBox[{"Pp", " ", 
+             RowBox[{"\[Rho]p", "[", "z", "]"}]}], ",", 
+            RowBox[{"Ps", " ", 
+             RowBox[{"\[Rho]sr", "[", "z", "]"}]}], ",", 
+            RowBox[{"Ps", " ", 
+             RowBox[{"\[Rho]sl", "[", "z", "]"}]}]}], "}"}], "/.", 
+          "solution"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"z", ",", "0", ",", "L"}], "}"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"MaxRecursion", "\[Rule]", "2"}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Medium"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Plot", "[", 
+       RowBox[{
+        RowBox[{"100", "\[Times]", 
+         FractionBox[
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"N2", "[", "z", "]"}], "/.", "Ni"}], "/.", "solution"}], 
+           "/.", 
+           RowBox[{"{", 
+            RowBox[{"z", "\[Rule]", "zz"}], "}"}]}], "NN"]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"zz", ",", "0", ",", "L"}], "}"}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+        RowBox[{"MaxRecursion", "\[Rule]", "2"}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", "Medium"}]}], "]"}]}], "}"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"R", ",", "0.95"}], "}"}], ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Rout", ",", "0.6"}], "}"}], ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"pP0", ",", "0.5"}], "}"}], ",", "0.01", ",", "50"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.688797014772051*^9, 3.68879706536646*^9}, {
+  3.688797967991394*^9, 3.6887980717202516`*^9}, {3.6887981975251436`*^9, 
+  3.688798217976092*^9}, {3.688798250277073*^9, 3.6887982775593557`*^9}, {
+  3.6887983401581106`*^9, 3.6887983415264397`*^9}, {3.6887983760294175`*^9, 
+  3.6887983779030676`*^9}, {3.6887984331124144`*^9, 3.688798434061227*^9}, {
+  3.688911302730402*^9, 3.688911364689186*^9}, {3.6889115284684124`*^9, 
+  3.688911529630153*^9}, {3.688911562903941*^9, 3.688911568738262*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`pP0$$ = 0.5, $CellContext`R$$ = 
+    0.95, $CellContext`Rout$$ = 0.3, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`R$$], 0.95}, 0, 1}, {{
+       Hold[$CellContext`Rout$$], 0.6}, 0, 1}, {{
+       Hold[$CellContext`pP0$$], 0.5}, 0.01, 50}}, Typeset`size$$ = {
+    1036., {109., 112.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`R$263212$$ = 
+    0, $CellContext`Rout$263213$$ = 0, $CellContext`pP0$263214$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`pP0$$ = 0.5, $CellContext`R$$ = 
+        0.95, $CellContext`Rout$$ = 0.6}, "ControllerVariables" :> {
+        Hold[$CellContext`R$$, $CellContext`R$263212$$, 0], 
+        Hold[$CellContext`Rout$$, $CellContext`Rout$263213$$, 0], 
+        Hold[$CellContext`pP0$$, $CellContext`pP0$263214$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ($CellContext`solution = Part[
+          
+          NDSolve[{$CellContext`laserEquationsSimplified, \
+$CellContext`\[Rho]p[
+             0] == $CellContext`pP0$$/$CellContext`Pp, $CellContext`R$$ \
+$CellContext`\[Rho]sr[$CellContext`L] == \
+$CellContext`\[Rho]sl[$CellContext`L], $CellContext`\[Rho]sr[
+             0] == $CellContext`Rout$$ $CellContext`\[Rho]sl[
+              0]}, {$CellContext`\[Rho]p, $CellContext`\[Rho]sr, \
+$CellContext`\[Rho]sl}, {$CellContext`z, 0, $CellContext`L}, 
+           AccuracyGoal -> -15, 
+           Method -> {
+            "Shooting", 
+             "StartingInitialConditions" -> {$CellContext`Ps $CellContext`\
+\[Rho]sr[0] == 20, $CellContext`Ps $CellContext`\[Rho]sl[0] == 20}}], 1]; {
+         $CellContext`OutputPowerFunction[$CellContext`Rout$$, \
+$CellContext`R$$, $CellContext`pP0$$], 
+         Plot[
+          Evaluate[
+           
+           ReplaceAll[{$CellContext`Pp $CellContext`\[Rho]p[$CellContext`z], \
+$CellContext`Ps $CellContext`\[Rho]sr[$CellContext`z], $CellContext`Ps \
+$CellContext`\[Rho]sl[$CellContext`z]}, $CellContext`solution]], \
+{$CellContext`z, 0, $CellContext`L}, PlotRange -> All, MaxRecursion -> 2, 
+          ImageSize -> Medium], 
+         Plot[100 (ReplaceAll[
+             ReplaceAll[
+              ReplaceAll[
+               $CellContext`N2[$CellContext`z], $CellContext`Ni], \
+$CellContext`solution], {$CellContext`z -> \
+$CellContext`zz}]/$CellContext`NN), {$CellContext`zz, 0, $CellContext`L}, 
+          PlotRange -> All, MaxRecursion -> 2, ImageSize -> Medium]}), 
+      "Specifications" :> {{{$CellContext`R$$, 0.95}, 0, 
+         1}, {{$CellContext`Rout$$, 0.6}, 0, 1}, {{$CellContext`pP0$$, 0.5}, 
+         0.01, 50}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{1087., {181., 188.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Input",
+ CellChangeTimes->{3.688958672424264*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "deqn"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Equation or list of equations expected instead of \
+\[NoBreak]\\!\\(\\*RowBox[{\\\"laserEquationsSimplified\\\"}]\\)\[NoBreak] in \
+the first argument \[NoBreak]\\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"laserEquationsSimplified\\\", \\\",\\\", RowBox[{RowBox[{\\\"\
+\[Rho]p\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", \
+FractionBox[\\\"0.5`\\\", \\\"Pp\\\"]}], \\\",\\\", RowBox[{RowBox[{\\\"0.95`\
+\\\", \\\" \\\", RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\"3\\\", \
+\\\"]\\\"}]}], \\\"\[Equal]\\\", RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"3\\\
+\", \\\"]\\\"}]}], \\\",\\\", RowBox[{RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\
+\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", RowBox[{\\\"0.3`\\\", \\\" \\\", \
+RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}]}]}]}], \
+\\\"}\\\"}]\\)\[NoBreak]. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/NDSolve/deqn\\\", ButtonNote -> \
+\\\"NDSolve::deqn\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6889683673089333`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"laserEquationsSimplified\\\", \\\",\\\", RowBox[{RowBox[{\\\"\
+\[Rho]p\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", \
+FractionBox[\\\"0.5`\\\", \\\"Pp\\\"]}], \\\",\\\", RowBox[{RowBox[{\\\"0.95`\
+\\\", \\\" \\\", RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\"3\\\", \
+\\\"]\\\"}]}], \\\"\[Equal]\\\", RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"3\\\
+\", \\\"]\\\"}]}], \\\",\\\", RowBox[{RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\
+\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", RowBox[{\\\"0.3`\\\", \\\" \\\", \
+RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}]}]}]}], \
+\\\"}\\\"}]\\)\[NoBreak] is neither a list of replacement rules nor a valid \
+dispatch table, and so cannot be used for replacing. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\", ButtonNote -> \
+\\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.688968367587119*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"laserEquationsSimplified\\\", \\\",\\\", RowBox[{RowBox[{\\\"\
+\[Rho]p\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", \
+FractionBox[\\\"0.5`\\\", \\\"Pp\\\"]}], \\\",\\\", RowBox[{RowBox[{\\\"0.95`\
+\\\", \\\" \\\", RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\"3\\\", \
+\\\"]\\\"}]}], \\\"\[Equal]\\\", RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"3\\\
+\", \\\"]\\\"}]}], \\\",\\\", RowBox[{RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\
+\"0\\\", \\\"]\\\"}], \\\"\[Equal]\\\", RowBox[{\\\"0.3`\\\", \\\" \\\", \
+RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"0\\\", \\\"]\\\"}]}]}]}], \
+\\\"}\\\"}]\\)\[NoBreak] is neither a list of replacement rules nor a valid \
+dispatch table, and so cannot be used for replacing. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\", ButtonNote -> \
+\\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.688968367765245*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"ReplaceAll", "::", "reps"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{\\\"laserEquationsSimplified\\\", \\\",\\\", RowBox[{RowBox[{\\\"\
+\[Rho]p\\\", \\\"[\\\", \\\"0.`\\\", \\\"]\\\"}], \\\"\[Equal]\\\", \
+FractionBox[\\\"0.5`\\\", \\\"Pp\\\"]}], \\\",\\\", RowBox[{RowBox[{\\\"0.95`\
+\\\", \\\" \\\", RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \\\"3.`\\\", \
+\\\"]\\\"}]}], \\\"\[Equal]\\\", RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"3.`\
+\\\", \\\"]\\\"}]}], \\\",\\\", RowBox[{RowBox[{\\\"\[Rho]sr\\\", \\\"[\\\", \
+\\\"0.`\\\", \\\"]\\\"}], \\\"\[Equal]\\\", RowBox[{\\\"0.3`\\\", \\\" \\\", \
+RowBox[{\\\"\[Rho]sl\\\", \\\"[\\\", \\\"0.`\\\", \\\"]\\\"}]}]}]}], \
+\\\"}\\\"}]\\)\[NoBreak] is neither a list of replacement rules nor a valid \
+dispatch table, and so cannot be used for replacing. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/ReplaceAll/reps\\\", ButtonNote -> \
+\\\"ReplaceAll::reps\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.688968367818282*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \
+\[NoBreak]\\!\\(\\*StyleBox[RowBox[{\\\"ReplaceAll\\\", \\\"::\\\", \
+\\\"reps\\\"}], \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6889683681345053`*^9}]
+}, Open  ]]
+},
+WindowSize->{1366, 685},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"10.3 for Microsoft Windows (64-bit) (October 9, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 73, 1, 48, "Input"],
+Cell[634, 23, 1699, 53, 162, "Input"],
+Cell[2336, 78, 3075, 95, 437, "Input"],
+Cell[5414, 175, 3586, 103, 258, "Input"],
+Cell[9003, 280, 2238, 55, 299, "Input"],
+Cell[CellGroupData[{
+Cell[11266, 339, 1510, 36, 202, "Input"],
+Cell[12779, 377, 158, 4, 31, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12974, 386, 1145, 27, 70, "Input"],
+Cell[14122, 415, 2172, 42, 492, "Output"]
+}, Open  ]],
+Cell[16309, 460, 448, 5, 30, "Text"],
+Cell[16760, 467, 4341, 107, 421, "Input"],
+Cell[CellGroupData[{
+Cell[21126, 578, 3609, 71, 386, "Input"],
+Cell[24738, 651, 1189, 20, 42, "Message"],
+Cell[25930, 673, 1150, 19, 42, "Message"],
+Cell[27083, 694, 1150, 19, 42, "Message"],
+Cell[28236, 715, 1160, 19, 42, "Message"],
+Cell[29399, 736, 567, 12, 21, "Message"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

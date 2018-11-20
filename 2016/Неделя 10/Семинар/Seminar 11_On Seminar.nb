@@ -1,0 +1,294 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9713,        286]
+NotebookOptionsPosition[      9092,        262]
+NotebookOutlinePosition[      9435,        277]
+CellTagsIndexPosition[      9392,        274]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7011430050727987`*^9, 3.7011430086355343`*^9}, {
+  3.70114304103043*^9, 3.7011430418273287`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Geometry", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Disk", "[", "]"}], ",", 
+     RowBox[{"Rectangle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"7", ",", "4"}], "}"}]}], "]"}], ",", 
+     RowBox[{"Triangle", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"3", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"6", ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"2", ",", 
+          RowBox[{"-", "1.5"}]}], "}"}]}], "}"}], "]"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Graphics", "[", "Geometry", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7011430149796705`*^9, 3.701143049954481*^9}, 
+   3.7011449775117135`*^9, 3.7011484562997923`*^9}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"DiscretizeRegion", "[", 
+   RowBox[{"RegionDifference", "[", 
+    RowBox[{
+     RowBox[{"Rectangle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "3"}], ",", 
+         RowBox[{"-", "3"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"9", ",", "6"}], "}"}]}], "]"}], ",", 
+     RowBox[{"RegionUnion", "@@", "Geometry"}]}], "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MeshCellCount", "[", 
+   RowBox[{"%", ",", "2"}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7011449070841956`*^9, 3.701144929101521*^9}, {
+  3.701145270766138*^9, 3.701145278302229*^9}, {3.701145353048877*^9, 
+  3.7011453658486753`*^9}, {3.7011456238303947`*^9, 3.701145643160823*^9}, {
+  3.701148458092684*^9, 3.7011484664674497`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"HighlightMesh", "[", 
+   RowBox[{
+    RowBox[{"bMesh", "=", 
+     RowBox[{"BoundaryMesh", "[", 
+      RowBox[{"DiscretizeRegion", "[", 
+       RowBox[{"RegionUnion", "@@", "Geometry"}], "]"}], "]"}]}], ",", 
+    RowBox[{"Labeled", "[", 
+     RowBox[{"0", ",", "\"\<Index\>\""}], "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NEl", "=", 
+   RowBox[{"MeshCellCount", "[", 
+    RowBox[{"%", ",", "1"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7011456322387333`*^9, 3.7011456394984303`*^9}, {
+  3.7011484634071617`*^9, 3.701148469762923*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"BElts", "=", 
+   RowBox[{"MeshPrimitives", "[", 
+    RowBox[{"bMesh", ",", "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Graphics", "[", "BElts", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Knots", "=", 
+   RowBox[{"RegionCentroid", "/@", "BElts"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7011460495063725`*^9, 3.7011460550415087`*^9}, {
+  3.7011461032388906`*^9, 3.7011461035357676`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"GreenF", "[", 
+   RowBox[{"x_", ",", "x0_"}], "]"}], ":=", 
+  RowBox[{"-", 
+   RowBox[{"N", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"1", "/", "2"}], "/", "Pi"}], " ", 
+     RowBox[{"Log", "[", 
+      RowBox[{"Norm", "[", 
+       RowBox[{"x", "-", "x0"}], "]"}], "]"}]}], 
+    "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"DGreenF", "[", 
+    RowBox[{"x_", ",", "x0_"}], "]"}], ":=", 
+   RowBox[{"-", 
+    RowBox[{"N", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"1", "/", "2"}], "/", "Pi"}], "/", 
+      RowBox[{"Norm", "[", 
+       RowBox[{"x", "-", "x0"}], "]"}]}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7011431935159464`*^9, 3.7011432019657497`*^9}, {
+   3.701145395733468*^9, 3.7011454222151966`*^9}, {3.701145559938942*^9, 
+   3.701145573444351*^9}, {3.701146012000933*^9, 3.7011460126259527`*^9}, 
+   3.70114852451173*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Lab", "=", 
+   RowBox[{"RegionMeasure", "/@", "BElts"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7011474298326626`*^9, 3.7011474359351397`*^9}, {
+  3.7011481848903713`*^9, 3.701148199364582*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"G", "=", "\[IndentingNewLine]", 
+  RowBox[{"Table", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Lab", "[", 
+      RowBox[{"[", "i", "]"}], "]"}], "\[Times]", "\[IndentingNewLine]", 
+     RowBox[{"NIntegrate", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"GreenF", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"BElts", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}], "+", 
+          RowBox[{"t", "\[Times]", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"BElts", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1", ",", "2"}], "]"}], "]"}], "-", 
+             RowBox[{"BElts", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], 
+         ",", "\[IndentingNewLine]", 
+         RowBox[{"Knots", "[", 
+          RowBox[{"[", "j", "]"}], "]"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "1"}], "}"}]}], "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"{", 
+     RowBox[{"j", ",", "1", ",", "NEl"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", "NEl"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7011482027694907`*^9, 3.7011482988470626`*^9}, {
+  3.7011483683262606`*^9, 3.7011484004961405`*^9}, {3.701148488449671*^9, 
+  3.701148503842478*^9}, {3.701148663662927*^9, 3.7011486643206587`*^9}}],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{{3.701148484572031*^9, 3.701148504847307*^9}, 
+   3.701148557955226*^9, {3.7011488302268662`*^9, 3.701148856570216*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"H", "=", "\[IndentingNewLine]", 
+  RowBox[{"Table", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Lab", "[", 
+      RowBox[{"[", "i", "]"}], "]"}], "\[Times]", "\[IndentingNewLine]", 
+     RowBox[{"NIntegrate", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"DGreenF", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"BElts", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}], "+", 
+           RowBox[{"t", "\[Times]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"BElts", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "1", ",", "2"}], "]"}], "]"}], "-", 
+              RowBox[{"BElts", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}]}], ")"}]}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{"Knots", "[", 
+           RowBox[{"[", "j", "]"}], "]"}]}], "]"}], 
+        FractionBox[
+         RowBox[{
+          RowBox[{"BElts", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}], "+", 
+          RowBox[{"t", "\[Times]", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"BElts", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1", ",", "2"}], "]"}], "]"}], "-", 
+             RowBox[{"BElts", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}]}], ")"}]}], 
+          "-", 
+          RowBox[{"Knots", "[", 
+           RowBox[{"[", "j", "]"}], "]"}]}], 
+         RowBox[{"Norm", "[", 
+          RowBox[{
+           RowBox[{"BElts", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}], "+", 
+           RowBox[{"t", "\[Times]", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"BElts", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "1", ",", "2"}], "]"}], "]"}], "-", 
+              RowBox[{"BElts", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "1", ",", "1"}], "]"}], "]"}]}], ")"}]}], 
+           "-", 
+           RowBox[{"Knots", "[", 
+            RowBox[{"[", "j", "]"}], "]"}]}], "]"}]]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "1"}], "}"}]}], "]"}]}], 
+    "\[IndentingNewLine]", ",", 
+    RowBox[{"{", 
+     RowBox[{"j", ",", "1", ",", "NEl"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", "NEl"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.701148586544056*^9, 3.70114858878788*^9}, {
+  3.7011486247713695`*^9, 3.701148626264082*^9}, {3.701148667302146*^9, 
+  3.7011487383347187`*^9}}]
+},
+WindowSize->{1366, 685},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 211, 4, 47, "Input"],
+Cell[772, 26, 862, 26, 84, "Input"],
+Cell[1637, 54, 811, 21, 84, "Input"],
+Cell[2451, 77, 608, 16, 84, "Input"],
+Cell[3062, 95, 465, 11, 121, "Input"],
+Cell[3530, 108, 912, 27, 84, "Input"],
+Cell[4445, 137, 231, 5, 47, "Input"],
+Cell[CellGroupData[{
+Cell[4701, 146, 1473, 36, 181, "Input"],
+Cell[6177, 184, 175, 2, 30, "Output"]
+}, Open  ]],
+Cell[6367, 189, 2721, 71, 229, "Input"]
+}
+]
+*)
+
